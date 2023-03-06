@@ -61,7 +61,7 @@ class FlanT5(BaseLM):
 
     def tok_encode(self, string: str):
         # Isn't used because we override loglikelihood, loglikelihood_rolling and greedy_until
-        return self.tokenizer(str, return_tensors="pt").input_ids.to(self.device())
+        return self.tokenizer.encode(str)
 
     def tok_decode(self, tokens):
         # Isn't used because we override loglikelihood, loglikelihood_rolling and greedy_until
