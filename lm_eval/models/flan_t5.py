@@ -72,7 +72,7 @@ class FlanT5(BaseLM):
 
     def _model_call(self, inps):
         # Isn't used because we override _loglikelihood_tokens
-        return self.model(inps)[0]
+        return self.model(inps)
 
     def _model_generate(self, context, max_length, eos_token_id):
         return self.model.generate(
