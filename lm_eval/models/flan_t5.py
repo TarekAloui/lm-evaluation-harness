@@ -1,5 +1,6 @@
 import random
 import torch
+from sys import maxint
 from lm_eval.base import BaseLM
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
@@ -44,8 +45,8 @@ class FlanT5(BaseLM):
     def max_length(self):
         # According to this github issue, T5 models are not limited to max_position_embeddings, so they deleted the parameter
         # Link: https://github.com/huggingface/transformers/issues/8047
-        # We return None for that reason
-        return None
+        # We return MAXINT for that reason
+        return maxint
 
     @property
     def max_gen_toks(self):
