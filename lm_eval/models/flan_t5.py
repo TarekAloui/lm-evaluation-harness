@@ -42,8 +42,10 @@ class FlanT5(BaseLM):
 
     @property
     def max_length(self):
-        # NOTE: Turn on truncation to avoid errors on long inputs.
-        return self.model.config.max_position_embeddings
+        # According to this github issue, T5 models are not limited to max_position_embeddings, so they deleted the parameter
+        # Link: https://github.com/huggingface/transformers/issues/8047
+        # We return None for that reason
+        return None
 
     @property
     def max_gen_toks(self):
