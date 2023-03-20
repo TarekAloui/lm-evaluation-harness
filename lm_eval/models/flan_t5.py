@@ -38,7 +38,6 @@ class FlanT5(BaseLM):
 
     @property
     def eot_token_id(self):
-        # Isn't used because we override loglikelihood, loglikelihood_rolling and greedy_until
         return self.tokenizer.eos_token_id
 
     @property
@@ -54,25 +53,21 @@ class FlanT5(BaseLM):
 
     @property
     def batch_size(self):
-        # Isn't used because we override loglikelihood, loglikelihood_rolling and greedy_until
         return self.batch_size_per_gpu
 
     @property
     def device(self):
-        # Isn't used because we override loglikelihood, loglikelihood_rolling and greedy_until
         return self._device
 
     def tok_encode(self, string: str):
-        # Isn't used because we override loglikelihood, loglikelihood_rolling and greedy_until
         return self.tokenizer.encode(string, add_special_tokens=False)
 
     def tok_decode(self, tokens):
-        # Isn't used because we override loglikelihood, loglikelihood_rolling and greedy_until
         return self.tokenizer.batch_decode(tokens, skip_special_tokens=True)
 
     def _model_call(self, inps):
-        # Isn't used because we override _loglikelihood_tokens
-        return self.model(inps)
+        with torch.no_grad():
+            return self.model(inps)[0]
 
     def _model_generate(self, context, max_length, eos_token_id):
         return self.model.generate(
